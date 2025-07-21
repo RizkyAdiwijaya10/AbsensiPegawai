@@ -1,9 +1,11 @@
-import '/pages/izin_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '/pages/profil_pages.dart';
-import '/pages/absen_pages.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:absensi_pegawai/pages/profil_pages.dart';
+import 'package:absensi_pegawai/pages/absen_pages.dart';
+import 'package:absensi_pegawai/pages/izin_pages.dart';
+import 'package:absensi_pegawai/pages/statistik_pages.dart';
+import 'package:absensi_pegawai/pages/riwayat_pages.dart';
 
 class HomePages extends StatelessWidget {
   const HomePages({super.key});
@@ -157,7 +159,8 @@ class HomePages extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const AbsensiPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const AbsensiPage()),
                       );
                     },
                   ),
@@ -169,7 +172,8 @@ class HomePages extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const IzinPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const IzinPage()),
                       );
                     },
                   ),
@@ -186,15 +190,26 @@ class HomePages extends StatelessWidget {
                     icon: Icons.bar_chart,
                     title: 'Statistik',
                     color: Colors.green,
-                    onTap: () =>
-                        _showSnackbar(context, 'Menu Statistik diklik'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const StatistikPage()),
+                      );
+                    },
                   ),
                   const SizedBox(width: 15),
                   _buildMenuCard(
                     icon: Icons.history,
                     title: 'Riwayat',
                     color: Colors.purple,
-                    onTap: () => _showSnackbar(context, 'Menu Riwayat diklik'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RiwayatPage()),
+                      );
+                    },
                   ),
                 ],
               ),
