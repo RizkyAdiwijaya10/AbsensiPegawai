@@ -1,145 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-// import 'package:shared_preferences/shared_preferences.dart';
-
-// class LoginPages extends StatefulWidget {
-//   const LoginPages({super.key});
-
-//   @override
-//   State<LoginPages> createState() => _LoginPagesState();
-// }
-
-// class _LoginPagesState extends State<LoginPages> {
-//   final TextEditingController nipController = TextEditingController();
-//   final TextEditingController passwordController = TextEditingController();
-//   bool isLoading = false;
-//   String? errorMessage;
-
-//   final String baseUrl = 'http://192.168.1.84:8000';
-
-//   Future<void> login() async {
-//     setState(() {
-//       isLoading = true;
-//       errorMessage = null;
-//     });
-
-//     final response = await http.post(
-//       Uri.parse('$baseUrl/api/login'),
-//       headers: {'Content-Type': 'application/json'},
-//       body: jsonEncode({
-//         'nipBaru': nipController.text,
-//         'password': passwordController.text,
-//       }),
-//     );
-
-//     setState(() {
-//       isLoading = false;
-//     });
-
-//     if (response.statusCode == 200) {
-//       final data = jsonDecode(response.body);
-//       final token = data['token'];
-//       final userData = data['user'];
-
-//       final prefs = await SharedPreferences.getInstance();
-//       await prefs.setString('token', token);
-//       await prefs.setString('user', jsonEncode(userData));
-
-//       // ✅ Navigasi ke halaman Home
-//       if (!mounted) return;
-//       Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(builder: (_) => HomePage(user: userData, token: token)),
-//       );
-//     } else {
-//       final data = jsonDecode(response.body);
-//       setState(() {
-//         errorMessage = data['message'] ?? 'Login gagal';
-//       });
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Login Pegawai')),
-//       body: Padding(
-//         padding: const EdgeInsets.all(20.0),
-//         child: Column(
-//           children: [
-//             TextField(
-//               controller: nipController,
-//               decoration: const InputDecoration(
-//                 labelText: 'NIP Baru',
-//                 prefixIcon: Icon(Icons.badge),
-//               ),
-//             ),
-//             const SizedBox(height: 10),
-//             TextField(
-//               controller: passwordController,
-//               obscureText: true,
-//               decoration: const InputDecoration(
-//                 labelText: 'Password',
-//                 prefixIcon: Icon(Icons.lock),
-//               ),
-//             ),
-//             const SizedBox(height: 20),
-//             if (errorMessage != null)
-//               Text(errorMessage!, style: const TextStyle(color: Colors.red)),
-//             const SizedBox(height: 10),
-//             isLoading
-//                 ? const CircularProgressIndicator()
-//                 : ElevatedButton.icon(
-//                     icon: const Icon(Icons.login),
-//                     onPressed: login,
-//                     label: const Text('Login'),
-//                   ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-// // class HomePage extends StatelessWidget {
-// //   final Map<String, dynamic> user;
-// //   final String token;
-
-// //   const HomePage({super.key, required this.user, required this.token});
-
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return Scaffold(
-// //       appBar: AppBar(
-// //         title: Text('Dashboard'),
-// //       ),
-// //       body: Padding(
-// //         padding: const EdgeInsets.all(20.0),
-// //         child: Column(
-// //           mainAxisAlignment: MainAxisAlignment.center,
-// //           children: [
-// //             Text("Selamat datang, ${user['username']}", style: const TextStyle(fontSize: 18)),
-// //             const SizedBox(height: 8),
-// //             Text("NIP: ${user['nipBaru']}"),
-// //             const SizedBox(height: 20),
-// //             const Divider(),
-// //             const Text("Token Anda:", style: TextStyle(fontWeight: FontWeight.bold)),
-// //             const SizedBox(height: 8),
-// //             SelectableText(token, style: const TextStyle(fontSize: 12, color: Colors.blueGrey)),
-// //           ],
-// //         ),
-// //       ),
-// //     );
-// //   }
-// // }
-
 import 'package:flutter/material.dart';
-import 'package:absensi_pegawai/pages/home_pages.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'home_pages.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -192,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (_) => HomePages(user: {}, token: '',),
+              builder: (_) => HomePage(user: userData, token: token),
             ),
           );
         } else {
@@ -237,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.asset(
-                        'assets/images/logo.png',
+                        'assets/images/c (1).jpeg',
                         height: 100,
                       ),
                       const SizedBox(height: 24),
@@ -307,20 +170,20 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-                      // const SizedBox(height: 8),
-                      // Align(
-                      //   alignment: Alignment.centerRight,
-                      //   child: TextButton(
-                      //     onPressed: () {
-                      //       ScaffoldMessenger.of(context).showSnackBar(
-                      //         const SnackBar(
-                      //           content: Text('Fitur lupa password belum tersedia'),
-                      //         ),
-                      //       );
-                      //     },
-                      //     child: const Text('Lupa Password?'),
-                      //   ),
-                      // ),
+                      const SizedBox(height: 8),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Fitur lupa password belum tersedia'),
+                              ),
+                            );
+                          },
+                          child: const Text('Lupa Password?'),
+                        ),
+                      ),
                       const SizedBox(height: 24),
                       SizedBox(
                         width: double.infinity,
@@ -354,6 +217,38 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  final Map<String, dynamic> user;
+  final String token;
+
+  const HomePage({super.key, required this.user, required this.token});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dashboard'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Selamat datang, ${user['username']}", style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 8),
+            Text("NIP: ${user['nipBaru']}"),
+            const SizedBox(height: 20),
+            const Divider(),
+            const Text("Token Anda:", style: TextStyle(fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            SelectableText(token, style: const TextStyle(fontSize: 12, color: Colors.blueGrey)),
+          ],
         ),
       ),
     );

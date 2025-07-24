@@ -8,8 +8,10 @@ class StatistikPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Statistik Absensi'),
-        backgroundColor: Colors.green,
+        title: const Text('Statistik Absensi',  style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color(0xFFFEBA17),
+        iconTheme: const IconThemeData(color: Colors.white),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

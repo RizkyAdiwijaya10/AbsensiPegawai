@@ -132,7 +132,9 @@ class _IzinPageState extends State<IzinPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pengajuan Izin'),
+        title: const Text('Pengajuan Izin',  style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color(0xFFFEBA17),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

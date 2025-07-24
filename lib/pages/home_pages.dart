@@ -6,9 +6,15 @@ import 'package:absensi_pegawai/pages/absen_pages.dart';
 import 'package:absensi_pegawai/pages/izin_pages.dart';
 import 'package:absensi_pegawai/pages/statistik_pages.dart';
 import 'package:absensi_pegawai/pages/riwayat_pages.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePages extends StatelessWidget {
-  const HomePages({super.key});
+  final Map<String, dynamic> user;
+  final String token;
+
+  const HomePages({super.key, required this.user, required this.token});
 
   // Format jam saat ini
   String getCurrentTime() {
@@ -17,7 +23,6 @@ class HomePages extends StatelessWidget {
 
   // Format tanggal hari ini dalam bahasa Indonesia
   String getCurrentDate() {
-    initializeDateFormatting('id_ID', null);
     return DateFormat('EEEE, dd MMMM yyyy', 'id_ID').format(DateTime.now());
   }
 
@@ -36,59 +41,61 @@ class HomePages extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaderProfil(BuildContext context) {
-    return Container(
-      height: 275,
-      width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xFFE45D0B),
-            Color(0xFFFFDE59),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilPage()),
-              );
-            },
-            child: const CircleAvatar(
-              backgroundImage: AssetImage('assets/images/c (1).jpeg'),
-              radius: 50,
-            ),
-          ),
-          const SizedBox(height: 10),
-          const Text(
-            'Rizky Adiwijaya S.kom, M.H',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
-          const Text(
-            '12123242345526',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-          ),
-          const Text(
-            'Kepala Dinas Kominfo',
-            style: TextStyle(fontSize: 10),
-          ),
+// Di _buildHeaderProfil():
+Widget _buildHeaderProfil(BuildContext context) {
+  return Container(
+    height: 275,
+    width: double.infinity,
+    decoration: const BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Color(0xFFE45D0B),
+          Color(0xFFFFDE59),
         ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
       ),
-    );
-  }
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.circular(30),
+        bottomRight: Radius.circular(30),
+      ),
+    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfilPage()),
+            );
+          },
+          child: const CircleAvatar(
+            backgroundImage: AssetImage('assets/images/c (1).jpeg'),
+            radius: 50,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          "${user['username']}",
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        Text(
+          "${user['nipBaru']}",
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "${user['jabatan']}",
+          style: const TextStyle(fontSize: 10),
+        ),
+      ],
+    ),
+  );
+}
+
 
   Widget _buildDateTimeInfo() {
     return Container(

@@ -19,6 +19,7 @@ class ProfilPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
