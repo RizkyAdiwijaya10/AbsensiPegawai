@@ -82,7 +82,7 @@ class StatistikPage extends StatelessWidget {
             height: 200,
             child: SfCartesianChart(
               primaryXAxis: CategoryAxis(),
-              series: <ChartSeries>[
+              series: <CartesianSeries>[
                 ColumnSeries<ChartData, String>(
                   dataSource: [
                     ChartData('Hadir', 20, Colors.green),

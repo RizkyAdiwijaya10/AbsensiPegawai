@@ -42,3 +42,16 @@ android {
 flutter {
     source = "../.."
 }
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdk = 34  // Atau 36
+                defaultConfig {
+                    minSdk = 21
+                }
+            }
+        }
+    }
+}
